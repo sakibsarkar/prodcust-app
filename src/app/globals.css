@@ -4,6 +4,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
 
+* {
+  font-family: "Inter", sans-serif;
+}
 
 .children {
   width: calc(100% - 253px);
@@ -56,9 +59,17 @@
 
 }
 
+.banner {
+  width: 100%;
+  height: 320px;
+  padding: 20px;
+}
 
 
+.bannerImg {
+  background: linear-gradient(270deg, rgba(0, 113, 130, 0.184) 82.4%, rgba(3, 238, 210, 0.8) 100%), url("../../public/bannerUnauth.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
 
-* {
-  font-family: "Inter", sans-serif;
+
 }
