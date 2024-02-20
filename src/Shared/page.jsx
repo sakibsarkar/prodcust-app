@@ -12,7 +12,7 @@ import { useSelector } from "react-redux";
 const Sidebar = () => {
     const pathName = usePathname()
     const { user } = useSelector(state => state.user)
-
+    
 
     const routes = [
         {

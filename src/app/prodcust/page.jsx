@@ -11,7 +11,7 @@ const page = async () => {
         group.push(data.slice(indx, indx + 5))
 
     }
-    
+
 
     return (
         <PrivateRoute>

@@ -24,9 +24,6 @@ export const authOptions = {
                     if (!passwordsMatch) {
                         return null;
                     }
-
-                
-
                     return user;
                 } catch (error) {
                     console.log("Error: ", error);
@@ -34,6 +31,21 @@ export const authOptions = {
             }
         })
     ],
+    callback: {
+        async jwt({ token, user }) {
+            if (user) {
+                token.email = user?.email
+            }
+            console.log(user, token);
+            return token
+        },
+        async session({ session, token }) {
+            if (token) {
+                session.user.email = token.email
+            }
+            return session
+        }
+    },
     session: {
         strategy: "jwt"
     },

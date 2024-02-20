@@ -3,18 +3,21 @@ import AuthComponent from "@/Components/Auth/AuthComponent";
 import ProdCustCard from "@/cards/ProdCustCard";
 import UnAuthComponent from "@/Components/UnAuth/UnAuthComponent";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setData } from "@/redux/slices/dataSlice";
 
 const Home = () => {
     const user = useSelector(state => state.user.user);
 
-    const [prodData, setProdData] = useState([])
+    const { data } = useSelector(state => state.data)
+
+    const disPatch = useDispatch()
 
     useEffect(() => {
         fetch("https://api.lyrics.ovh/suggest/e")
             .then(res => res.json())
-            .then(({ data }) => setProdData(data.slice(0, 5)))
-    }, [])
+            .then(({ data }) => disPatch(setData(data)))
+    }, [disPatch])
 
 
 
@@ -42,7 +45,7 @@ const Home = () => {
 
             <div className="prodGrid">
                 {
-                    prodData?.map(prod => <ProdCustCard key={prod.id} data={prod} />)
+                    [...data].slice(0, 5)?.map(prod => <ProdCustCard key={prod.id} data={prod} />)
                 }
             </div>
         </div>
