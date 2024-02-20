@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
             <Sidebar />
           </div>
 
-          <div className="children bg-[#191919] p-[40px]">
+          <div className="children bg-[#191919] p-[50px]">
             {children}
           </div>
 
