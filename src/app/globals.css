@@ -10,6 +10,10 @@
   font-family: "Inter", sans-serif;
 }
 
+#activeRoute {
+  color: #069D95;
+}
+
 .children {
   width: calc(100% - 253px);
   height: 100vh;
@@ -87,4 +91,27 @@
   font-family: "Nico Moji";
   font-weight: 400;
   font-size: 65px;
+}
+
+
+.searchBar::placeholder {
+  color: #FFFFFF99;
+}
+
+.myBtn {
+  background-color: #3B3B3B;
+  color: white;
+  border-radius: 99px;
+  width: 147px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+}
+
+.prodGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 190px);
+  justify-content: space-between;
+  width: 100%;
 }

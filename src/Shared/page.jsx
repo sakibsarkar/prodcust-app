@@ -1,13 +1,39 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import logo from "../../public/logo.png";
+import { usePathname } from "next/navigation";
 import { FaGear } from "react-icons/fa6";
 import { IoMdHome } from "react-icons/io";
 import { IoLogOutOutline } from "react-icons/io5";
 import { MdOutlineMusicNote } from "react-icons/md";
-import { MdOutlineQueueMusic } from "react-icons/md";
+import { useSelector } from "react-redux";
 
 const Sidebar = () => {
+    const pathName = usePathname()
+    const { user } = useSelector(state => state.user)
+
+
+    const routes = [
+        {
+            href: "/",
+            text: "Home",
+            icon: <IoMdHome />
+        },
+        {
+            href: "/prodcust",
+            text: "ProdCust",
+            icon: <MdOutlineMusicNote />
+        },
+        {
+            href: "/settings",
+            text: "Settings",
+            icon: < FaGear />
+        },
+
+    ]
+
+
     return (
         <div className="w-full bg-[#3B3B3B] h-full px-[25px] py-[40px] flex flex-col justify-between items-center">
             <div className="flex flex-col justify-center items-start gap-[50px] w-full">
@@ -17,13 +43,21 @@ const Sidebar = () => {
                     <h2 className="title">Menu</h2>
 
                     <div className="flex flex-col gap-[20px] w-full">
-                        <Link href={"/"} className="w-full flex items-center justify-start gap-[15px] text-[20px] text-white"><IoMdHome />Home</Link>
+                        {
+                            routes.map((route, i) => <Link
+                                key={i}
+                                href={route.href}
+                                className="w-full flex items-center justify-start gap-[15px] text-[20px] text-white"
+                                id={route.href === pathName ? "activeRoute" : ""}
+                            >
+                                {route.icon}{route.text}
+                            </Link>)
+                        }
 
-                        <Link href={"/"} className="w-full flex items-center justify-start gap-[15px] text-[20px] text-white"><MdOutlineMusicNote />Prodcust</Link>
-
-                        <Link href={"/"} className="w-full flex items-center justify-start gap-[15px] text-[20px] text-white"><FaGear />Settings</Link>
-
-                        <Link href={"/"} className="w-full flex items-center justify-start gap-[15px] text-[20px] text-white"><IoLogOutOutline />Logout</Link>
+                        {
+                            user.email ?
+                                <button href={"/"} className="w-full flex items-center justify-start gap-[15px] text-[20px] text-white"><IoLogOutOutline />Logout</button> : ""
+                        }
 
 
                     </div>

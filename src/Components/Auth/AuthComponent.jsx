@@ -5,14 +5,7 @@ import crown from "../../../public/crown.png";
 const AuthComponent = () => {
     return (
         <div className="flex flex-col justify-start items-start  gap-[20px] w-full">
-            <div className="w-full flex justify-between items-center ">
-                <h1 className="text-white text-[30px]">Welcome to fauget music services</h1>
 
-                <div className="flex justify-center items-center gap-[20px]">
-                    <button className="w-[210px] h-[50px] bg-[#060606] text-white rounded-full" onClick={() => setShowSignIn(true)}>Signin</button>
-                    <button className="w-[210px] h-[50px] bg-[#202020] text-white rounded-full border border-black" onClick={() => setShowSignUp(true)}>Sign up</button>
-                </div>
-            </div>
 
             <div className="banner banner2 text-white pt-[20px] pl-[40px] flex flex-col items-start justify-between ">
 

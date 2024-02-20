@@ -8,7 +8,7 @@ const UnAuthNav = () => {
 
 
     return (
-        <div className="w-full flex justify-between items-center ">
+        <div className="w-full flex justify-between items-center mb-[35px]">
             <h1 className="text-white text-[30px]">Welcome to fauget music services</h1>
 
             <div className="flex justify-center items-center gap-[20px]">

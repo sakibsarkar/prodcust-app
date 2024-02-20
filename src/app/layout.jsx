@@ -1,6 +1,5 @@
 import "./globals.css";
 import ReduxProvier from "@/redux/ReduxProvier";
-import Sidebar from "@/Shared/page";
 import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -14,20 +13,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="flex justify-between items-center">
-
-          <div className="w-[253px] h-[100vh]">
-            <Sidebar />
-          </div>
-
-          <div className="children bg-[#191919] p-[50px]">
-            
-            <ReduxProvier>
-              {children}
-            </ReduxProvier>
-          </div>
-
-        </div>
+        <ReduxProvier>
+          {children}
+        </ReduxProvier>
       </body>
     </html>
   );
