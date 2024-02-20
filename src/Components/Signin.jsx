@@ -1,14 +1,22 @@
 import Image from "next/image";
 import logo from "../../public/logo.png";
 import { signIn } from "next-auth/react";
+import { useDispatch } from "react-redux";
+import { setSignin } from "@/redux/slices/signInModalSilce";
+import { setSignup } from "@/redux/slices/signupModalSilce";
+import { signInAuth } from "@/redux/slices/userSlice";
 
 // import { useRouter } from "next/router";
 
-const Signin = ({ setShowSignIn, setShowSignUp }) => {
+const Signin = () => {
+
+    const dispatch = useDispatch()
 
     const hanldeToggle = () => {
-        setShowSignIn(false)
-        setShowSignUp(true)
+
+        dispatch(setSignin(false))
+        dispatch(setSignup(true))
+
     }
     // const router = useRouter();
 
@@ -23,8 +31,8 @@ const Signin = ({ setShowSignIn, setShowSignUp }) => {
                 email, password, redirect: false,
             })
 
-            console.log(res);
-
+            dispatch(signInAuth({ email, password }))
+            dispatch(setSignin(false))
 
 
         }
@@ -74,7 +82,7 @@ const Signin = ({ setShowSignIn, setShowSignUp }) => {
                 </div>
 
 
-                <p className="w-[427px] text-[#FFFFFF99] text-start font-[600] text-[18px]" onClick={hanldeToggle}>Don’t have account? Create an account <span className="text-[#040404] underline cursor-pointer" onClick={hanldeToggle}>sign up</span></p>
+                <p className="w-[427px] text-[#FFFFFF99] text-start font-[600] text-[18px]" >Don’t have account? Create an account <span className="text-[#040404] underline cursor-pointer" onClick={hanldeToggle}>sign up</span></p>
             </form>
         </div>
     );

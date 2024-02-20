@@ -1,4 +1,5 @@
 import "./globals.css";
+import ReduxProvier from "@/redux/ReduxProvier";
 import Sidebar from "@/Shared/page";
 import { Inter } from "next/font/google";
 
@@ -20,7 +21,10 @@ export default function RootLayout({ children }) {
           </div>
 
           <div className="children bg-[#191919] p-[50px]">
-            {children}
+            
+            <ReduxProvier>
+              {children}
+            </ReduxProvier>
           </div>
 
         </div>

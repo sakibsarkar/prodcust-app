@@ -1,11 +1,18 @@
 "use client";
 import Image from "next/image";
 import logo from "../../public/logo.png";
+import { useDispatch } from "react-redux";
+import { setSignin } from "@/redux/slices/signInModalSilce";
+import { setSignup } from "@/redux/slices/signupModalSilce";
+import { signInAuth } from "@/redux/slices/userSlice";
 
-const Signup = ({ setShowSignUp, setShowSignIn }) => {
+const Signup = () => {
+
+    const dispatch = useDispatch()
+
     const hanldeToggle = () => {
-        setShowSignIn(true)
-        setShowSignUp(false)
+        dispatch(setSignin(true))
+        dispatch(setSignup(false))
     }
 
 
@@ -19,10 +26,10 @@ const Signup = ({ setShowSignUp, setShowSignIn }) => {
             email,
             password
         }
-        console.log(obj);
-        // if (password === confirmPass) {
-        //     return
-        // }
+
+        if (password === confirmPass) {
+            return
+        }
 
         try {
             const res = await fetch("/api/register", {
@@ -33,7 +40,12 @@ const Signup = ({ setShowSignUp, setShowSignIn }) => {
                 body: JSON.stringify(obj)
             })
 
-            const resVall = await res.json()
+
+            if (res.error) {
+                return
+            }
+
+            dispatch(signInAuth({ email, password }))
             console.log(resVall);
         }
 
