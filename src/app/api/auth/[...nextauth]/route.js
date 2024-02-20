@@ -1,6 +1,6 @@
 import CredentialsProvider from "next-auth/providers/credentials";
 import NextAuth from "next-auth/next";
-import User from "../../../../../models/UserModel";
+import User from "@/models/UserModel";
 import bcrypt from "bcryptjs";
 import { connectDb } from "@/lib/mongodb";
 
@@ -15,16 +15,17 @@ export const authOptions = {
                 try {
                     await connectDb()
                     const user = await User.findOne({ email });
-                    console.log("Get User: ", user);
+
                     if (!user) {
                         return null;
                     }
 
                     const passwordsMatch = await bcrypt.compare(password, user.password);
-
                     if (!passwordsMatch) {
                         return null;
                     }
+
+                
 
                     return user;
                 } catch (error) {
@@ -41,7 +42,6 @@ export const authOptions = {
         signIn: '/login'
     }
 }
-
 
 const handler = NextAuth(authOptions);
 

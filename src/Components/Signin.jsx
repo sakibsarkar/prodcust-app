@@ -1,5 +1,8 @@
 import Image from "next/image";
 import logo from "../../public/logo.png";
+import { signIn } from "next-auth/react";
+
+// import { useRouter } from "next/router";
 
 const Signin = ({ setShowSignIn, setShowSignUp }) => {
 
@@ -7,13 +10,28 @@ const Signin = ({ setShowSignIn, setShowSignUp }) => {
         setShowSignIn(false)
         setShowSignUp(true)
     }
-
+    // const router = useRouter();
 
     const hanldeSubmit = async (e) => {
         e.preventDefault()
         const form = e.target
         const email = form.email.value
         const password = form.pass.value
+
+        try {
+            const res = await signIn('credentials', {
+                email, password, redirect: false,
+            })
+
+            console.log(res);
+
+
+
+        }
+
+        catch (err) {
+            console.log(err);
+        }
     }
 
     return (

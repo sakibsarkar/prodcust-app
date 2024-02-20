@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import logo from "../../public/logo.png";
 
@@ -14,9 +15,30 @@ const Signup = ({ setShowSignUp, setShowSignIn }) => {
         const email = form.email.value
         const password = form.pass.value
         const confirmPass = form.confirm.value
+        const obj = {
+            email,
+            password
+        }
+        console.log(obj);
+        // if (password === confirmPass) {
+        //     return
+        // }
 
-        if (password === confirmPass) {
-            return
+        try {
+            const res = await fetch("/api/register", {
+                method: "POST",
+                headers: {
+                    "Content-type": "Application/json"
+                },
+                body: JSON.stringify(obj)
+            })
+
+            const resVall = await res.json()
+            console.log(resVall);
+        }
+
+        catch {
+            ""
         }
     }
 
