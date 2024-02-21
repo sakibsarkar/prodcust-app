@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 let User;
 
 try {
-    User = mongoose.model("User");
+    User = mongoose.model("users");
 } catch (error) {
     const userSchema = new mongoose.Schema({
         email: {
@@ -17,7 +17,7 @@ try {
         }
     }, { timestamps: true });
 
-    User = mongoose.model("User", userSchema);
+    User = mongoose.model("users", userSchema);
 }
 
 export default User;

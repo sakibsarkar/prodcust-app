@@ -10,15 +10,15 @@ export const POST = async (req) => {
         const isExists = await User.findOne({ email });
 
         if (isExists) {
-            return NextResponse.json({ isExists }, { status: 200 })
+            return NextResponse.json({ isExists }, { status: 200 });
         }
 
-        const hasPass = await bcrypt.hash(password, 10);
+        const hashedPassword = await bcrypt.hash(password, 10);
 
-        await User.create({ email: email, password: hasPass })
-        return NextResponse.json({ message: 'user created successful' }, { status: 200 })
+        await User.create({ email, password: hashedPassword });
+        return NextResponse.json({ message: 'User created successfully' }, { status: 200 });
+    } catch (error) {
+        console.error("Error:", error);
+        return NextResponse.json({ message: 'Internal server error' }, { status: 500 });
     }
-    catch {
-        return NextResponse.json({ message: 'err occ' }, { status: 500 })
-    }
-}
+};

@@ -11,6 +11,7 @@ const Signup = () => {
 
     const dispatch = useDispatch()
     const [isLoading, setIsloading] = useState(false)
+    const [error, setError] = useState("")
 
     const hanldeToggle = () => {
         if (isLoading) {
@@ -36,11 +37,13 @@ const Signup = () => {
             password
         }
 
-        if (password === confirmPass) {
-            return
+        if (password !== confirmPass) {
+            setIsloading(false)
+            return setError("Password didn't mathced, Please confrim your password")
         }
 
         try {
+            setIsloading(true)
             const res = await fetch("/api/register", {
                 method: "POST",
                 headers: {
@@ -49,17 +52,38 @@ const Signup = () => {
                 body: JSON.stringify(obj)
             })
 
+            if (res.ok) {
+                const message = await res.json()
 
-            if (res.error) {
-                return
+                if (message.isExists) {
+                    setIsloading(false)
+                    return setError("User already exist")
+                }
+
+                else {
+                    setError("")
+                    setIsloading(false)
+                    dispatch(signInAuth({ email, password }))
+                    console.log(resVall);
+                }
+
             }
 
-            dispatch(signInAuth({ email, password }))
-            console.log(resVall);
+            if (res.error) {
+                setIsloading(false)
+                return setError("New error occ, Please try agin with different email")
+            }
+
+            else {
+                setIsloading(false)
+                setError("Unexpected error, please try again")
+            }
+
         }
 
         catch {
-            ""
+            setIsloading(false)
+            setError("Something went wrong")
         }
     }
 
@@ -108,17 +132,22 @@ const Signup = () => {
                         </div>
                     </div>
 
+                    <p className="text-red-600 text-[13px]">
+                        {error ? "*" + error : ""}
 
-                    <button type="submit" className="w-[210px] h-[50px] flex justify-center items-center bg-[#060606] rounded-full">Create account</button>
+                    </p>
+
+                    <button type="submit" className="w-[210px] h-[50px] flex justify-center items-center bg-[#060606] rounded-full">
+                        {
+                            isLoading ? "Please wait..." : "Create account"
+                        }
+                    </button>
 
                 </div>
 
 
                 <p className="w-[427px] text-[#FFFFFF99] text-start font-[600] text-[18px]" >Have account? Sign in  account <span className="text-[#040404] underline cursor-pointer" onClick={hanldeToggle}>
-                    {
-                        isLoading ? "Creating account" : "sign up"
-                    }
-
+                    sign up
                 </span></p>
             </form>
         </div>
