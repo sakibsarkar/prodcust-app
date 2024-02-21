@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import logo from "../../public/logo.png";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { setSignin } from "@/redux/slices/signInModalSilce";
 import { setSignup } from "@/redux/slices/signupModalSilce";
@@ -9,8 +10,12 @@ import { signInAuth } from "@/redux/slices/userSlice";
 const Signup = () => {
 
     const dispatch = useDispatch()
+    const [isLoading, setIsloading] = useState(false)
 
     const hanldeToggle = () => {
+        if (isLoading) {
+            return
+        }
         dispatch(setSignin(true))
         dispatch(setSignup(false))
     }
@@ -18,6 +23,10 @@ const Signup = () => {
 
     const hanldeSubmit = async (e) => {
         e.preventDefault()
+
+        if (isLoading) {
+            return
+        }
         const form = e.target
         const email = form.email.value
         const password = form.pass.value
@@ -55,10 +64,10 @@ const Signup = () => {
     }
 
     return (
-        <div className="fixed top-0 left-0 w-screen h-screen bg-[#0000007a] flex justify-center items-center">
+        <div className="z-[99] fixed top-0 left-0 w-screen h-screen bg-[#0000007a] flex justify-center items-center">
 
 
-            <form onSubmit={hanldeSubmit} className="bg-[#3B3B3B] w-[567px] h-[718px] flex flex-col justify-center items-center gap-[30px] text-white rounded-md">
+            <form onSubmit={hanldeSubmit} className=" bg-[#3B3B3B] w-[567px] h-[718px] flex flex-col justify-center items-center gap-[30px] text-white rounded-md">
                 <Image alt="logo" src={logo} width={150} height={100} />
                 <h2 className="text-[38px] font-[600]">Sign up</h2>
 
@@ -105,7 +114,12 @@ const Signup = () => {
                 </div>
 
 
-                <p className="w-[427px] text-[#FFFFFF99] text-start font-[600] text-[18px]" >Have account? Sign in  account <span className="text-[#040404] underline cursor-pointer" onClick={hanldeToggle}> sign up</span></p>
+                <p className="w-[427px] text-[#FFFFFF99] text-start font-[600] text-[18px]" >Have account? Sign in  account <span className="text-[#040404] underline cursor-pointer" onClick={hanldeToggle}>
+                    {
+                        isLoading ? "Creating account" : "sign up"
+                    }
+
+                </span></p>
             </form>
         </div>
     );

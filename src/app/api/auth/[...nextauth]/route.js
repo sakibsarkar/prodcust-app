@@ -8,51 +8,35 @@ export const authOptions = {
     providers: [
         CredentialsProvider({
             name: 'credentials',
-            credentials: {},
+            credentials: {
+                email: { label: "Username", type: "text" },
+                password: { label: "Password", type: "text" }
+            },
 
-            async authorize(credentials) {
+            authorize: async (credentials) => {
                 const { email, password } = credentials;
+
                 try {
-                    await connectDb()
+                    await connectDb();
                     const user = await User.findOne({ email });
 
                     if (!user) {
-                        return null;
+                        throw new Error("Invalid email");
                     }
 
                     const passwordsMatch = await bcrypt.compare(password, user.password);
                     if (!passwordsMatch) {
-                        return null;
+                        throw new Error("Invalid password");
                     }
+
                     return user;
                 } catch (error) {
-                    console.log("Error: ", error);
+                    throw new Error("Authentication failed");
                 }
             }
         })
     ],
-    callback: {
-        async jwt({ token, user }) {
-            if (user) {
-                token.email = user?.email
-            }
-            console.log(user, token);
-            return token
-        },
-        async session({ session, token }) {
-            if (token) {
-                session.user.email = token.email
-            }
-            return session
-        }
-    },
-    session: {
-        strategy: "jwt"
-    },
-    secret: process.env.NEXTAUTH_SECRET,
-    pages: {
-        signIn: '/login'
-    }
+
 }
 
 const handler = NextAuth(authOptions);

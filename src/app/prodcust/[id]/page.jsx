@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import PrivateRoute from "@/Components/PrivateRoute";
 import ProdCustDisplay from "@/Components/ProdCustDisplay";
 import React, { useEffect, useState } from "react";
 import { IoPlayCircleOutline } from "react-icons/io5";
@@ -21,6 +22,8 @@ const ProdcustDetail = ({ params }) => {
     const [audioDuraiton, setAudioDuration] = useState(0)
 
     const [suf, setsuf] = useState([])
+
+
 
 
 
@@ -90,33 +93,35 @@ const ProdcustDetail = ({ params }) => {
 
 
     return (
-        <div className="w-full flex flex-col justify-center items-start gap-[20px] ">
-            <div className="w-full h-[346px] relative">
-                <Image alt="details image" src={album.cover_xl} width={700} height={400} className="w-full h-full object-cover" />
+        <PrivateRoute>
+            <div className="w-full flex flex-col justify-center items-start gap-[20px] ">
+                <div className="w-full h-[346px] relative">
+                    <Image alt="details image" src={album?.cover_xl} width={700} height={400} className="w-full h-full object-cover" />
 
-                <div className="flex justify-center items-center w-full h-full absolute top-0 left-0 bg-[#00000042]">
+                    <div className="flex justify-center items-center w-full h-full absolute top-0 left-0 bg-[#00000042]">
 
-                    <button className="text-white text-[65px]">
-                        {isPlaying ?
-                            <RiPauseCircleLine onClick={handleMusicToggle} />
-                            :
-                            <IoPlayCircleOutline onClick={handleMusicToggle} />
-                        }
-                    </button>
+                        <button className="text-white text-[65px]">
+                            {isPlaying ?
+                                <RiPauseCircleLine onClick={handleMusicToggle} />
+                                :
+                                <IoPlayCircleOutline onClick={handleMusicToggle} />
+                            }
+                        </button>
 
-                    <input type="range" value={currentTime} max={audioDuraiton} min={0} onChange={handleTrack} className="audioRange" />
+                        <input type="range" value={currentTime} max={audioDuraiton} min={0} onChange={handleTrack} className="audioRange" />
 
+                    </div>
+
+                    <p className="absolute left-[40px] top-[20px] text-[18px] font-[600] text-white">{title}</p>
                 </div>
 
-                <p className="absolute left-[40px] top-[20px] text-[18px] font-[600] text-white">{title}</p>
+                <p className="font-[600] text-[18px] text-white max-w-[882px]">{"Music, often regarded as a universal language, possesses a profound impact on individuals and societies alike. While it has long been celebrated for its ability to evoke emotions, foster connections, and uplift spirits, the flip side of the melody reveals a spectrum of adverse effects that are often overlooked"}</p>
+                {
+                    <ProdCustDisplay title={"Related"} data={suf} />
+                }
+
             </div>
-
-            <p className="font-[600] text-[18px] text-white max-w-[882px]">{"Music, often regarded as a universal language, possesses a profound impact on individuals and societies alike. While it has long been celebrated for its ability to evoke emotions, foster connections, and uplift spirits, the flip side of the melody reveals a spectrum of adverse effects that are often overlooked"}</p>
-            {
-                <ProdCustDisplay title={"Related"} data={suf} />
-            }
-
-        </div>
+        </PrivateRoute>
     );
 };
 

@@ -1,18 +1,23 @@
 import Image from "next/image";
 import logo from "../../public/logo.png";
 import { signIn } from "next-auth/react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { setSignin } from "@/redux/slices/signInModalSilce";
 import { setSignup } from "@/redux/slices/signupModalSilce";
 import { signInAuth } from "@/redux/slices/userSlice";
 
-// import { useRouter } from "next/router";
-
 const Signin = () => {
+    const [loading, setLoading] = useState(false)
 
     const dispatch = useDispatch()
 
+    const [error, setError] = useState("")
+
     const hanldeToggle = () => {
+        if (loading) {
+            return
+        }
 
         dispatch(setSignin(false))
         dispatch(setSignup(true))
@@ -25,28 +30,37 @@ const Signin = () => {
         const form = e.target
         const email = form.email.value
         const password = form.pass.value
+        setLoading(true)
 
         try {
             const res = await signIn('credentials', {
                 email, password, redirect: false,
             })
 
+            if (res.error) {
+                setLoading(false)
+                return setError(res.error)
+            }
+
+
             dispatch(signInAuth({ email, password }))
             dispatch(setSignin(false))
+            setLoading(false)
 
 
         }
 
         catch (err) {
+            setLoading(false)
             console.log(err);
         }
     }
 
     return (
-        <div className="fixed top-0 left-0 w-screen h-screen bg-[#0000007a] flex justify-center items-center">
+        <div className="z-[99] fixed top-0 left-0 w-screen h-screen bg-[#0000007a] flex justify-center items-center">
 
 
-            <form onSubmit={hanldeSubmit} className="bg-[#3B3B3B] w-[567px] h-[718px] flex flex-col justify-center items-center gap-[30px] text-white rounded-md">
+            <form onSubmit={hanldeSubmit} className="bg-[#3B3B3B] w-[567px] h-[718px] flex flex-col justify-center items-center gap-[30px] text-white rounded-md ">
                 <Image alt="logo" src={logo} width={150} height={100} />
                 <h2 className="text-[38px] font-[600]">Sign in</h2>
 
@@ -76,8 +90,16 @@ const Signin = () => {
                         </div>
                     </div>
 
+                    <p className="text-red-600 text-[13px]">
+                        {error ? "*" + error : ""}
 
-                    <button type="submit" className="w-[210px] h-[50px] flex justify-center items-center bg-[#060606] rounded-full">Create account</button>
+                    </p>
+                    <button type="submit" className="w-[210px] h-[50px] flex justify-center items-center bg-[#060606] rounded-full">
+                        {
+                            loading ? "Please wait..." : "Sign in"
+                        }
+
+                    </button>
 
                 </div>
 
