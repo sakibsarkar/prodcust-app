@@ -7,13 +7,14 @@ import { FaGear } from "react-icons/fa6";
 import { IoMdHome } from "react-icons/io";
 import { IoLogOutOutline } from "react-icons/io5";
 import { MdOutlineMusicNote } from "react-icons/md";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { signOut } from "@/redux/slices/userSlice";
 
 const Sidebar = () => {
     const pathName = usePathname()
     const { user } = useSelector(state => state.user)
-    
 
+    const dispatch = useDispatch()
     const routes = [
         {
             href: "/",
@@ -32,6 +33,11 @@ const Sidebar = () => {
         },
 
     ]
+
+
+    const handleLogout = () => {
+        dispatch(signOut())
+    }
 
 
     return (
@@ -56,7 +62,9 @@ const Sidebar = () => {
 
                         {
                             user.email ?
-                                <button href={"/"} className="w-full flex items-center justify-start gap-[15px] text-[20px] text-white"><IoLogOutOutline />Logout</button> : ""
+                                <button href={"/"} className="w-full flex items-center justify-start gap-[15px] text-[20px] text-white"
+                                    onClick={handleLogout}
+                                ><IoLogOutOutline />Logout</button> : ""
                         }
 
 
