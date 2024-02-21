@@ -24,7 +24,7 @@ const AuthComponent = () => {
                         </div>
                         <h1 className="premiumHeading leading-[65px] text-[40px] lg:text-[65px]">Premium Membership</h1>
                     </div>
-                    <p className="max-w-[775px] text-[18px] font-[600]">It is a long established fact that a is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.</p>
+                    <p className="max-w-[775px] text-[18px] font-[600]">It is a long established fact that a is that it has a more-or-less normal distribution of letters, as opposed to using &apos;Content here, content here &apos;, making it look like readable English.</p>
 
                     <div className="hidden lg:flex justify-start items-center gap-[30px]">
                         <button className="w-[210px] h-[50px] bg-[#060606] text-white rounded-full">Upgrade now</button>

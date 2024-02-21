@@ -1,6 +1,6 @@
 import PrivateRoute from "@/Components/PrivateRoute";
 import ProdCustCard from "@/cards/ProdCustCard";
-import ProdCustDisplay from "@/Components/ProdCustDisPlay";
+import ProdCustDisplay from "@/Components/ProdCustDisplay";
 import React from "react";
 
 const page = async () => {

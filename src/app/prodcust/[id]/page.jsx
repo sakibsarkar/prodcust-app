@@ -15,7 +15,7 @@ const ProdcustDetail = ({ params }) => {
 
     const { id, readable, title, title_short, link, duration, rank, explicit_lyrics, explicit_content_lyrics, explicit_content_cover, preview, md5_image, artist, album, type } = this_prodcust || {}
 
-    const [audio] = useState(new Audio(preview));
+    const [audio] = useState(new Audio('/audio.mp'));
     const [isPlaying, setIsPlaying] = useState(false);
 
     const [currentTime, SetCurrentTime] = useState(0)
@@ -29,7 +29,7 @@ const ProdcustDetail = ({ params }) => {
 
     useEffect(() => {
 
-        audio.src = preview;
+        audio.src = "/audio.mp3"
         audio.load();
 
 
@@ -94,31 +94,40 @@ const ProdcustDetail = ({ params }) => {
 
     return (
         <PrivateRoute>
-            <div className="w-full flex flex-col justify-center items-start gap-[20px] ">
-                <div className="w-full h-[346px] relative">
-                    <Image alt="details image" src={album?.cover_xl} width={700} height={400} className="w-full h-full object-cover" />
+            <div className="w-full flex flex-col justify-center items-start gap-[50px] ">
+                <div className="w-full flex flex-col justify-center items-start gap-[20px]">
+                    <div className="w-full h-[346px] relative">
+                        <Image alt="details image" src={album?.cover_xl} width={700} height={400} className="w-full h-full object-cover" />
 
-                    <div className="flex justify-center items-center w-full h-full absolute top-0 left-0 bg-[#00000042]">
+                        <div className="flex justify-center items-center w-full h-full absolute top-0 left-0 bg-[#00000042]">
 
-                        <button className="text-white text-[65px]">
-                            {isPlaying ?
-                                <RiPauseCircleLine onClick={handleMusicToggle} />
-                                :
-                                <IoPlayCircleOutline onClick={handleMusicToggle} />
-                            }
-                        </button>
+                            <button className="text-white text-[65px]">
+                                {isPlaying ?
+                                    <RiPauseCircleLine onClick={handleMusicToggle} />
+                                    :
+                                    <IoPlayCircleOutline onClick={handleMusicToggle} />
+                                }
+                            </button>
 
-                        <input type="range" value={currentTime} max={audioDuraiton} min={0} onChange={handleTrack} className="audioRange" />
+                            <input type="range" value={currentTime} max={audioDuraiton} min={0} onChange={handleTrack} className="audioRange" />
 
+                        </div>
+
+                        <p className="absolute left-[40px] top-[20px] text-[18px] font-[600] text-white">{title}</p>
                     </div>
 
-                    <p className="absolute left-[40px] top-[20px] text-[18px] font-[600] text-white">{title}</p>
+                    <p className="font-[600] text-[18px] text-white max-w-[882px]">{"Music, often regarded as a universal language, possesses a profound impact on individuals and societies alike. While it has long been celebrated for its ability to evoke emotions, foster connections, and uplift spirits, the flip side of the melody reveals a spectrum of adverse effects that are often overlooked"}</p>
+
+
                 </div>
 
-                <p className="font-[600] text-[18px] text-white max-w-[882px]">{"Music, often regarded as a universal language, possesses a profound impact on individuals and societies alike. While it has long been celebrated for its ability to evoke emotions, foster connections, and uplift spirits, the flip side of the melody reveals a spectrum of adverse effects that are often overlooked"}</p>
-                {
-                    <ProdCustDisplay title={"Related"} data={suf} />
-                }
+
+                <div className="mt-[35px] w-full">
+                    {
+                        <ProdCustDisplay title={"Related"} data={suf} />
+                    }
+                </div>
+
 
             </div>
         </PrivateRoute>

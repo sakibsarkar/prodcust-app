@@ -8,14 +8,18 @@ const ProdCustCard = ({ data = {} }) => {
 
 
     return (
-        <Link href={`/prodcust/${id}`} className="w-[190] h-[190px] rounded-3xl overflow-hidden relative">
-            <Image className="w-full h-full object-cover" alt="prodcustImg" src={album?.cover_medium} width={190} height={190} />
+        <Link href={`/prodcust/${id}`}>
+            <div className="w-[190] h-[190px] rounded-3xl overflow-hidden relative">
+                <Image className="w-full h-full object-cover" alt="prodcustImg" src={album?.cover_medium} width={190} height={190} />
 
-            <div className="w-full h-full flex justify-center items-center absolute top-0 left-0 bg-[#00000038]">
-                <span className="text-[65px] text-white">
-                    <MdOutlinePlayCircle />
-                </span>
+                <div className="w-full h-full flex justify-center items-center absolute top-0 left-0 bg-[#00000038]">
+                    <span className="text-[65px] text-white">
+                        <MdOutlinePlayCircle />
+                    </span>
+                </div>
             </div>
+
+            <h2 className="mt-[10px] ml-[30px] text-white font-[18px]">{title_short}</h2>
         </Link>
     );
 };
