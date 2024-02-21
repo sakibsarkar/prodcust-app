@@ -8,9 +8,9 @@ const AuthNav = () => {
         <div className="flex justify-between items-center mb-[35px]">
             <h1 className="text-[30px] font-[600] text-white">Welcome,claudia Alvies</h1>
             <div className="flex gap-[20px] items-center justify-center">
-                <div className="w-[332px] h-[50px] px-[20px] flex items-center justify-between rounded-full bg-[#3B3B3B] text-[#FFFFFF99]">
+                <div className="hidden lg:flex w-[270px] xl:w-[332px]  h-[50px] px-[20px] items-center justify-between rounded-full bg-[#3B3B3B] text-[#FFFFFF99]">
                     <IoSearch />
-                    <input placeholder="Artist, Music, Album, Etc" type="text" className="searchBar w-[85%] bg-transparent w-ful outline-none" />
+                    <input placeholder="Artist, Music, Album, Etc" type="text" className="searchBar  bg-transparent w-ful outline-none" />
 
                     <FaMicrophone />
                 </div>

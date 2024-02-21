@@ -1,3 +1,4 @@
+import "../mediaQuaries/responsive.css";
 import "./globals.css";
 import ReduxProvier from "@/redux/ReduxProvier";
 import { Inter } from "next/font/google";

@@ -33,7 +33,7 @@ const Home = () => {
             }
 
 
-            <div className="w-full flex justify-between items-center">
+            <div className="w-full flex justify-between items-center flex-wrap gap-[20px]">
                 <button className="w-fit bg-[#3B3B3B] px-[40px] py-[10px] rounded-full text-white">For you</button>
                 <button className="w-fit bg-[#3B3B3B] px-[40px] py-[10px] rounded-full text-white">Popular</button>
                 <button className="w-fit bg-[#3B3B3B] px-[40px] py-[10px] rounded-full text-white">Trend</button>
