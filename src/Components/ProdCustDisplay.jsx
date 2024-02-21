@@ -1,9 +1,9 @@
 import ProdCustCard from "@/cards/ProdCustCard";
 
-const ProdCustDisplay = ({ titlte = "", data = [] }) => {
+const ProdCustDisplay = ({  title = "", data = [] }) => {
     return (
         <div className="flex flex-col justify-center items-start gap-[25px] w-full">
-            <button className="myBtn">{titlte}</button>
+            <button className="myBtn">{title}</button>
             <div className="prodGrid">
                 {
                     data?.map(prod => <ProdCustCard key={prod.id} data={prod} />)

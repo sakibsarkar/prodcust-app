@@ -18,9 +18,9 @@ const page = async () => {
         <PrivateRoute>
             <div className="flex flex-col justify-center items-start gap-[60px]">
 
-                <ProdCustDisplay titlte="For you" data={group[0]} />
-                <ProdCustDisplay titlte="Populer" data={group[1]} />
-                <ProdCustDisplay titlte="Trend" data={group[2]} />
+                <ProdCustDisplay title="For you" data={group[0]} />
+                <ProdCustDisplay title="Populer" data={group[1]} />
+                <ProdCustDisplay title="Trend" data={group[2]} />
 
 
             </div>

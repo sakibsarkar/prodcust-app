@@ -1,13 +1,15 @@
 "use client";
 import Image from "next/image";
+import ProdCustDisplay from "@/Components/ProdCustDisplay";
 import React, { useEffect, useState } from "react";
 import { IoPlayCircleOutline } from "react-icons/io5";
 import { RiPauseCircleLine } from "react-icons/ri";
 import { useSelector } from "react-redux";
+import { shuffleArray } from "@/functions/suffle";
 
 const ProdcustDetail = ({ params }) => {
 
-    const { data } = useSelector(state => state.data)
+    let { data } = useSelector(state => state.data)
     const this_prodcust = data?.find((prod) => prod.id == params.id)
 
     const { id, readable, title, title_short, link, duration, rank, explicit_lyrics, explicit_content_lyrics, explicit_content_cover, preview, md5_image, artist, album, type } = this_prodcust || {}
@@ -17,6 +19,8 @@ const ProdcustDetail = ({ params }) => {
 
     const [currentTime, SetCurrentTime] = useState(0)
     const [audioDuraiton, setAudioDuration] = useState(0)
+
+    const [suf, setsuf] = useState([])
 
 
 
@@ -50,6 +54,12 @@ const ProdcustDetail = ({ params }) => {
         };
     }, [audio]);
 
+    useEffect(() => {
+        const suffleData = shuffleArray(data)
+        setsuf(suffleData)
+    }, [data])
+
+
     const handleMusicToggle = () => {
         if (isPlaying) {
             audio.pause();
@@ -71,8 +81,14 @@ const ProdcustDetail = ({ params }) => {
         }
         SetCurrentTime(track)
         setIsPlaying(true)
+        audio.play()
 
     };
+
+
+
+
+
     return (
         <div className="w-full flex flex-col justify-center items-start gap-[20px] ">
             <div className="w-full h-[346px] relative">
@@ -88,12 +104,18 @@ const ProdcustDetail = ({ params }) => {
                         }
                     </button>
 
-                    <input type="range" value={currentTime} max={audioDuraiton} min={0} onChange={handleTrack} />
+                    <input type="range" value={currentTime} max={audioDuraiton} min={0} onChange={handleTrack} className="audioRange" />
 
                 </div>
 
                 <p className="absolute left-[40px] top-[20px] text-[18px] font-[600] text-white">{title}</p>
             </div>
+
+            <p className="font-[600] text-[18px] text-white max-w-[882px]">{"Music, often regarded as a universal language, possesses a profound impact on individuals and societies alike. While it has long been celebrated for its ability to evoke emotions, foster connections, and uplift spirits, the flip side of the melody reveals a spectrum of adverse effects that are often overlooked"}</p>
+            {
+                <ProdCustDisplay title={"Related"} data={suf} />
+            }
+
         </div>
     );
 };
