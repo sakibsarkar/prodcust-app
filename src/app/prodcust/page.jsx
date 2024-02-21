@@ -1,5 +1,6 @@
 import PrivateRoute from "@/Components/PrivateRoute";
 import ProdCustCard from "@/cards/ProdCustCard";
+import ProdCustDisplay from "@/Components/ProdCustDisPlay";
 import React from "react";
 
 const page = async () => {
@@ -17,33 +18,10 @@ const page = async () => {
         <PrivateRoute>
             <div className="flex flex-col justify-center items-start gap-[60px]">
 
+                <ProdCustDisplay titlte="For you" data={group[0]} />
+                <ProdCustDisplay titlte="Populer" data={group[1]} />
+                <ProdCustDisplay titlte="Trend" data={group[2]} />
 
-                <div className="flex flex-col justify-center items-start gap-[25px] w-full">
-                    <button className="myBtn">For You</button>
-                    <div className="prodGrid">
-                        {
-                            group[0]?.map(prod => <ProdCustCard key={prod.id} data={prod} />)
-                        }
-                    </div>
-                </div>
-
-                <div className="flex flex-col justify-center items-start gap-[25px] w-full">
-                    <button className="myBtn">For You</button>
-                    <div className="prodGrid">
-                        {
-                            group[1]?.map(prod => <ProdCustCard key={prod.id} data={prod} />)
-                        }
-                    </div>
-                </div>
-
-                <div className="flex flex-col justify-center items-start gap-[25px] w-full">
-                    <button className="myBtn">For You</button>
-                    <div className="prodGrid">
-                        {
-                            group[2]?.map(prod => <ProdCustCard key={prod.id} data={prod} />)
-                        }
-                    </div>
-                </div>
 
             </div>
         </PrivateRoute>

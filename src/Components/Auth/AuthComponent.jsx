@@ -1,13 +1,18 @@
 import Image from "next/image";
 import React from "react";
 import crown from "../../../public/crown.png";
+import man from "../../../public/man.png";
 
 const AuthComponent = () => {
     return (
         <div className="flex flex-col justify-start items-start  gap-[20px] w-full">
 
 
-            <div className="banner banner2 text-white pt-[20px] pl-[40px] flex flex-col items-start justify-between ">
+            <div className="w-full h-[330px] banner2 text-white pt-[20px] pl-[40px] flex flex-col items-start justify-between relative">
+
+                <div className="absolute right-[20px] bottom-0">
+                    <Image src={man} alt="a man" width={174} height={295} />
+                </div>
 
                 <div className="mt-[25px] h-full flex flex-col justify-center items-start gap-0">
                     <div className="relative">
